@@ -1,0 +1,49 @@
+{
+  "settings": {
+    "date": "%Y%m%d-%H%M",
+    "hostname": "",
+    "boot_dir": "/boot/EFI/Gentoo",
+    "grub_dir": "/etc/grub.d",
+    "save_file_name": "",
+
+    "vars": {
+      "kernel_dir": "{boot_dir}/kernel",
+      "kernel_fname": "kernel-gentoo-{hostname}-{date}-RT.efi",
+      "initfs_dir": "{boot_dir}/initramfs",
+      "initfs_fname": "initramfs-gentoo-{hostname}-{date}.img"
+    }
+  },
+  "menuentry": {
+    "title": "something {date}",
+    "class": ["gentoo", "something", "{date}"],
+    "id": "{date}"
+  },
+
+  "set": {
+    "gfxpayload": "keep"
+  },
+
+  "insmod": ["gzio", "part_gpt", "fat"],
+
+  "search": {
+    "--no-floppy": "",
+    "--fs-uuid": "",
+    "--set": ""
+  },
+
+  "kernel": {
+    "title": "Loading {kernel_fname} ...",
+    "linux": "{kernel_dir}/{kernel_fname}",
+    "options": {
+      "root": "",
+      "rootfs": "",
+      "ro": ""
+    }
+  },
+
+  "initramfs": {
+    "title": "Loading {initfs_fname} ...",
+    "initrd":  "{initfs_dir}/{initfs_fname}"
+  }
+}
+
